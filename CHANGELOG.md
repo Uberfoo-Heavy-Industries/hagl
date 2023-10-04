@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## [0.8.0-uberfoo]
+
+Forked project from original to introduce multi display support.
+
 ## [0.7.0](https://github.com/tuupola/hagl/compare/0.6.0...0.7.0) - 2023-03-19
 
 ### Changed
