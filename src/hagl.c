@@ -38,6 +38,7 @@ SPDX-License-Identifier: MIT
 #include <stdbool.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <sys/time.h>
 
 #include "rgb332.h"
 #include "rgb565.h"
@@ -65,14 +66,17 @@ hagl_clear(void *_surface)
 }
 
 hagl_backend_t *
-hagl_init(void)
+hagl_init(uint8_t *display_config)
 {
-    static hagl_backend_t backend;
-    memset(&backend, 0, sizeof(hagl_backend_t));
+    hagl_backend_t *backend = calloc(sizeof(hagl_backend_t), sizeof(uint8_t));
+    memset(backend, 0, sizeof(hagl_backend_t));
 
-    hagl_hal_init(&backend);
-    hagl_set_clip(&backend, 0, 0,  backend.width - 1,  backend.height - 1);
-    return &backend;
+    backend->display_config = display_config;
+
+    hagl_hal_init(backend);
+    hagl_set_clip(backend, 0, 0,  backend->width - 1,  backend->height - 1);
+
+    return backend;
 };
 
 size_t
