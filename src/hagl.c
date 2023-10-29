@@ -70,8 +70,10 @@ hagl_init(void *_display_config)
 {
     mipi_display_config_t *display_config = _display_config;
 
-    hagl_backend_t *backend = calloc(sizeof(hagl_backend_t), sizeof(uint8_t));
+    hagl_backend_t *backend = display_config->haglCalloc(sizeof(hagl_backend_t), sizeof(uint8_t));
+
     memset(backend, 0, sizeof(hagl_backend_t));
+    backend->haglCalloc = display_config->haglCalloc;
 
     backend->display_config = display_config;
 

@@ -48,6 +48,7 @@ typedef struct {
     int16_t height;
     uint8_t depth;
     hagl_window_t clip;
+    void *(*haglCalloc)(size_t, size_t);
     void (*put_pixel)(const void *self, int16_t x0, int16_t y0, hagl_color_t color);
     hagl_color_t (*get_pixel)(const void *self, int16_t x0, int16_t y0);
     hagl_color_t (*color)(const void *self, uint8_t r, uint8_t g, uint8_t b);
