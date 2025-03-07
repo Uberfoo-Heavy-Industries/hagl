@@ -35,6 +35,8 @@ SPDX-License-Identifier: MIT
 #ifndef _HAGL_SURFACE_H
 #define _HAGL_SURFACE_H
 
+#include <stddef.h>
+
 #include "hagl/bitmap.h"
 #include "hagl/window.h"
 #include "hagl/color.h"
