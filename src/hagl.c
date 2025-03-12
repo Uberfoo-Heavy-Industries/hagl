@@ -99,3 +99,10 @@ hagl_close(hagl_backend_t *backend)
         backend->close(backend);
     }
 };
+
+void
+hagl_backlight(hagl_backend_t *backend, bool on) {
+    if (backend->backlight) {
+        backend->backlight(backend, on);
+    }
+}

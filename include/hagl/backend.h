@@ -36,6 +36,7 @@ SPDX-License-Identifier: MIT
 #define _HAGL_BACKEND_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #include "hagl/bitmap.h"
 #include "hagl/window.h"
@@ -63,6 +64,7 @@ typedef struct {
     /* Specific to backend. */
     size_t (*flush)(const void *self);
     void (*close)(const void *self);
+    void (*backlight)(const void *self, bool on);
     uint8_t *buffer;
     uint8_t *buffer2;
     void *display_config;

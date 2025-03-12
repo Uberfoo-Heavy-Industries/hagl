@@ -74,8 +74,8 @@ extern "C" {
 hagl_backend_t *hagl_init(void *display_config);
 size_t hagl_flush(hagl_backend_t *backend);
 void hagl_close(hagl_backend_t *backend);
-
 void hagl_clear(void *surface);
+void hagl_backlight(hagl_backend_t *backend, bool on);
 
 #ifdef __cplusplus
 }
