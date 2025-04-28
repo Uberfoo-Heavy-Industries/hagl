@@ -47,18 +47,24 @@ rgb565(uint8_t r, uint8_t g, uint8_t b)
     return rgb;
 }
 
+/*
+ * Converts an RGB565 color value to RGB888 format.
+ * Expands the 5-bit R, 6-bit G, and 5-bit B components to 8 bits each.
+ */
 rgb_t
-rgb565_to_rgb888(uint16_t *input)
+rgb565_to_rgb888(uint16_t *input) // Changed signature to pass by value
 {
     rgb_t rgb;
 
-    uint8_t r5 = (*input & 0xf800) >> 8; // 1111100000000000
-    uint8_t g6 = (*input & 0x07e0) >> 3; // 0000011111100000
-    uint8_t b5 = (*input & 0x001f) << 3; // 0000000000011111
+    // Extract the components
+    uint8_t r5 = (*input >> 11) & 0x1F; // Get 5 bits of red
+    uint8_t g6 = (*input >> 5)  & 0x3F; // Get 6 bits of green
+    uint8_t b5 = (*input)       & 0x1F; // Get 5 bits of blue
 
-    rgb.r = (r5 * 527 + 23) >> 6;
-    rgb.g = (g6 * 259 + 33) >> 6;
-    rgb.b = (b5 * 527 + 23) >> 6;
+    // Expand components to 8 bits by shifting and replicating MSBs to LSBs
+    rgb.r = (r5 << 3) | (r5 >> 2); // RRRRR -> RRRRRrrr (r = RRR)
+    rgb.g = (g6 << 2) | (g6 >> 4); // GGGGGG -> GGGGGGgg (g = GG)
+    rgb.b = (b5 << 3) | (b5 >> 2); // BBBBB -> BBBBBbbb (b = BBB)
 
     return rgb;
 }
