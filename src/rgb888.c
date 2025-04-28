@@ -91,9 +91,10 @@ rgb888_to_hsl(rgb_t *rgb)
 uint16_t
 rgb888_to_rgb565(rgb_t *input)
 {
-    uint16_t r5 = (input->r * 249 + 1014 ) >> 11;
-    uint16_t g6 = (input->g * 253 +  505) >> 10;
-    uint16_t b5 = (input->b * 249 + 1014) >> 11;
+    uint16_t r5 = (input->r >> 3) & 0x1F; // Get top 5 bits of red
+    uint16_t g6 = (input->g >> 2) & 0x3F; // Get top 6 bits of green
+    uint16_t b5 = (input->b >> 3) & 0x1F; // Get top 5 bits of blue
 
-    return (r5 | g6 | b5);
+    // Combine the components into a 16-bit value: RRRRRGGGGGGBBBBB
+    return (r5 << 11) | (g6 << 5) | b5;
 }
